@@ -12,7 +12,8 @@ You can download this project as a ZIP, then extract it, inside the project fold
 
 ## Properties
 
-After adding the `Record.tscn` in your scene
+After adding the `Record.tscn` in your scene,
+select the size of the screen you want to record, then change the properties
 
 - Fps
   - You can determine the FPS as you want
@@ -20,7 +21,7 @@ After adding the `Record.tscn` in your scene
   - The path of the AnimationPlayer node
   - If you select a wrong path or a wrong node, you will get some nice errors :)  
 - Animation Name
- - The name of the animation you want to record
+  - The name of the animation you want to record
 - Result Folder
   - The folder that will store the images,
   - If you keep it empty, the images will be stored in `res://` 
