@@ -61,3 +61,5 @@ fps = 15.0
 animation_player_path = NodePath("../AnimationPlayer")
 animation_name = "test"
 resultFolder = "res://Examble/Result"
+saveOption = 1
+numberOfColumns = 8

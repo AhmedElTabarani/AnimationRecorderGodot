@@ -25,10 +25,13 @@ select the size of the screen you want to record, then change the properties
 - Result Folder
   - The folder that will store the images,
   - If you keep it empty, the images will be stored in `res://` 
+- Save Option
+  - You can save the record as split images or as sprite sheet 
 - Exit After Finish
-   - If is set to true, the program will be terminated itself after the recording finish
-   - If is set to false, the program will be still opening and be idling
+   - If is set to true, the program will be terminated itself after the recording finish `(Maybe cause some problems)`
+   - If is set to false, the program will be still opening and be idling `(Recommended)`
 
-![](https://user-images.githubusercontent.com/69223584/135526890-db20f6fc-5cfd-47cd-afae-db91a3b8ecda.png)
+![](https://user-images.githubusercontent.com/69223584/135724686-01cbc6a0-366e-4cc1-9a7b-f215903abe6f.png)
+
 
 [MIT License](LICENSE)
