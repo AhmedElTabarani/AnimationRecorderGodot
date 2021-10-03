@@ -8,7 +8,10 @@ https://user-images.githubusercontent.com/69223584/135526555-21753c0f-1f66-4e6a-
 
 ## Installation
 
-You can download this project as a ZIP, then extract it, inside the project folder you will find a folder called `AnimationRecorder` that contain `Record` scene and its script, move the `AnimationRecorder` folder inside your project, you can add it inside `addons/` folder if you want.
+- Download this project as a ZIP
+- Extract it :)
+- Inside the project folder you will find a folder called `AnimationRecorder` 
+- Move the `AnimationRecorder` folder inside your project, you can add it inside `addons/` folder if you want.
 
 ## Properties
 
@@ -26,10 +29,10 @@ select the size of the screen you want to record, then change the properties
   - The folder that will store the images,
   - If you keep it empty, the images will be stored in `res://` 
 - Save Option
-  - You can save the record as split images or as sprite sheet 
+  - You can save the record as `split images` or as `sprite sheet`
 - Exit After Finish
-   - If is set to true, the program will be terminated itself after the recording finish `(Maybe cause some problems)`
-   - If is set to false, the program will be still opening and be idling `(Recommended)`
+   - If is set to true, the program will be terminated itself after the recording finish
+   - If is set to false, the program will be still opening and be idling
 
 ![](https://user-images.githubusercontent.com/69223584/135724686-01cbc6a0-366e-4cc1-9a7b-f215903abe6f.png)
 
