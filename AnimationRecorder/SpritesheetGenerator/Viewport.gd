@@ -1,6 +1,6 @@
 extends Viewport
  
-func _save_spritesheet(resultFolder, exitAfterFinish):
+func _generate_spritesheet(resultFolder, exitAfterFinish):
 	
 	# Waiting while the viewport texture has rendered
 	yield(get_tree(), "idle_frame")
@@ -10,10 +10,9 @@ func _save_spritesheet(resultFolder, exitAfterFinish):
 	spritesheet.flip_y()
 	spritesheet.convert(Image.FORMAT_RGBA8)
 	
-	var dir = Directory.new()
-	if dir.dir_exists(resultFolder) != true:
-		dir.make_dir(resultFolder)
 	
+	print("Size of spritesheet: ", size)
+	print("Recording has compeleted")
 	spritesheet.save_png(resultFolder + '/'+ "spritesheet.png")
 	print("Spritesheet has been stored in ", resultFolder)
 	

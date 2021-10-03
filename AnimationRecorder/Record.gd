@@ -2,6 +2,8 @@ tool
 extends Control
 
 onready var viewport = get_viewport()
+onready var SpritesheetGenerator = preload("res://AnimationRecorder/SpritesheetGenerator/SpritesheetGenerator.tscn")
+onready var spritesheetGenerator = SpritesheetGenerator.instance()
 
 export(float) var fps = 60.0
 export(NodePath) var animation_player_path = null
@@ -20,6 +22,7 @@ var images = []
 var length : float
 var rate : float = 0.0
 var pos : float = 0.0
+var id = -1
 
 func _set_save_as(option):
 	saveOption = option
@@ -63,7 +66,22 @@ func _ready():
 		print("Animation name: ", animation_name)
 		print("Length: ", length, 's')
 		print("FPS: ", fps)
-
+		
+		# Create result folder if it doesn't exist
+		var dir = Directory.new()
+		if dir.dir_exists(resultFolder) != true:
+			dir.make_dir(resultFolder)
+		
+		# Prevent Godot from importing the output images as resources
+		var file = File.new()
+		file.open(resultFolder + "/.gdignore", File.WRITE)
+		file.close()
+		
+		add_child(spritesheetGenerator)
+		# Pass initial data to Spritesheet Generator
+		spritesheetGenerator._init_data(numberOfColumns, resultFolder, exitAfterFinish)
+		spritesheetGenerator.visible = false
+	
 func _check_exception_errors():
 	assert(animation_player_path != "", "Error: AnimationPlayer Path is Null")
 	assert(get_node(animation_player_path) is AnimationPlayer, "Error: Expected an AnimationPlayer Path")
@@ -75,6 +93,7 @@ func _process(_delta):
 	if not Engine.editor_hint:
 		animation_player.seek(pos, true)
 		pos += rate
+		
 		_take_image()
 		
 		# Waiting while the image is taken
@@ -82,48 +101,49 @@ func _process(_delta):
 		
 		if animation_player.current_animation_position == length:
 			_take_image() # Capture last frame
-			_save_images()
 			
-			# Stop '_process(delta)' function 
+			match saveOption:
+				SaveAs.SPLIT_IMAGES:
+					_record_finished()
+					
+				SaveAs.SPRITE_SHEET:
+					spritesheetGenerator.visible = true
+					spritesheetGenerator._generate_spritesheet()
+			
 			set_process(false)
+			return
 		
 func _take_image():
-	var image = viewport.get_texture().get_data()
 	
+	if id == -1:
+		id += 1
+		return
+	
+	var image = viewport.get_texture().get_data()
 	image.flip_y()
 	image = image.get_rect(self.get_rect())
 	image.convert(Image.FORMAT_RGBA8)
-	images.push_back(image)
-
-func _save_images():
-	
-	# BUG !!
-	# Delete first frame (it always be an empty image)
-	images.pop_front()
-	
-	print("No. images: ", images.size())
-	print("Recording has compeleted")
 	
 	match saveOption:
 		SaveAs.SPLIT_IMAGES:
-			var dir = Directory.new()
-			if dir.dir_exists(resultFolder) != true:
-				dir.make_dir(resultFolder)
-			
-			var id = 0
-			var path
-			for image in images:
-				path = str(id) + ".png"
-				image.save_png(resultFolder + '/' + path)
-				id += 1
-			print("Images are stored in ", resultFolder)
-			
-			if exitAfterFinish:
-				get_tree().quit()
-
+			# Save in folder
+			_save_image(image)
 			
 		SaveAs.SPRITE_SHEET:
-			var spritesheetGenerator = preload("res://AnimationRecorder/SpritesheetGenerator/SpritesheetGenerator.tscn").instance()
-			add_child(spritesheetGenerator)
-			spritesheetGenerator._create_spritesheet(images, numberOfColumns, resultFolder, exitAfterFinish)
-		
+			# Save in Grid
+			spritesheetGenerator._save_image(image)
+
+func _save_image(image):
+	var path
+	path = str(id) + ".png"
+	image.save_png(resultFolder + '/' + path)
+	id += 1
+
+func _record_finished():
+	print("No. images: ", id)
+	print("Recording has compeleted")
+	print("Images are stored in ", resultFolder)
+	
+	if exitAfterFinish:
+		get_tree().quit()
+

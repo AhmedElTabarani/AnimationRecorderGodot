@@ -10,4 +10,5 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+animation_player_path = null
 exitAfterFinish = false

@@ -5,24 +5,24 @@ onready var Grid = $Viewport/GridContainer
 var imageTexture : ImageTexture
 var textureRect : TextureRect
 
-func _create_spritesheet(images, numberOfColumns, resultFolder, exitAfterFinish):
-	
+var resultFolder
+var exitAfterFinish
+
+func _init_data(numberOfColumns, resultFolder, exitAfterFinish):
 	Grid.columns = numberOfColumns
+	self.resultFolder = resultFolder
+	self.exitAfterFinish = exitAfterFinish
 	
-	for image in images:
-		imageTexture = ImageTexture.new()
-		imageTexture.create_from_image(image)
+func _save_image(image):
+	imageTexture = ImageTexture.new()
+	imageTexture.create_from_image(image)
 
-		textureRect = TextureRect.new()
-		textureRect.texture = imageTexture
+	textureRect = TextureRect.new()
+	textureRect.texture = imageTexture
 
-		Grid.add_child(textureRect)
-		
-	# Waiting while the grid render his children
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
+	Grid.add_child(textureRect)
 	
+func _generate_spritesheet():
 	# Set the size of the sprite sheet
 	$Viewport.size =  Grid.rect_size
-	
-	$Viewport._save_spritesheet(resultFolder, exitAfterFinish)
+	$Viewport._generate_spritesheet(resultFolder, exitAfterFinish)
