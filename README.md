@@ -26,15 +26,17 @@ select the size of the screen you want to record, then change the properties
 - Animation Name
   - The name of the animation you want to record
 - Result Folder
-  - The folder that will store the images,
+  - The folder that will store the images
   - If you keep it empty, the images will be stored in `res://` 
 - Save Option
-  - You can save the record as `split images` or as `sprite sheet`
+  - You can save the record as `Split Images` or as `Sprite Sheet`
+  - If you select `Sprite Sheet`, The `Number of Columns` property will be appear
+    - Number of Columns
+      - Set number of columns of the sprite sheet
+      - Number of Rows will be calculated as : FPS * Length of Animation Per Second 
 - Exit After Finish
    - If is set to true, the program will be terminated itself after the recording finish
    - If is set to false, the program will be still opening and be idling
-
-![](https://user-images.githubusercontent.com/69223584/135724686-01cbc6a0-366e-4cc1-9a7b-f215903abe6f.png)
 
 
 [MIT License](LICENSE)
