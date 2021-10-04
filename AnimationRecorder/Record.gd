@@ -6,12 +6,14 @@ onready var SpritesheetGenerator = preload("res://AnimationRecorder/SpritesheetG
 onready var spritesheetGenerator = SpritesheetGenerator.instance()
 
 export(float) var fps = 60.0
-export(NodePath) var animation_player_path = null
-export(String) var animation_name = ""
-export(String, DIR) var resultFolder = ""
+export(NodePath) var animation_player_path = "" setget _set_animation_player_path
+var animation_name = "" setget _set_animation_name
+var animations : Array = []
+
+var resultFolder = ""
 
 enum SaveAs {SPLIT_IMAGES, SPRITE_SHEET}
-export(SaveAs) var saveOption = SaveAs.SPLIT_IMAGES setget _set_save_as
+var saveOption = SaveAs.SPLIT_IMAGES setget _set_save_as
 
 var numberOfColumns = 5
 var exitAfterFinish = true
@@ -24,12 +26,56 @@ var rate : float = 0.0
 var pos : float = 0.0
 var id = -1
 
+func _set_animation_player_path(path):
+	animation_player_path = path
+	if path != null and has_node(path):
+		animation_player = get_node(path)
+		animations = animation_player.get_animation_list()
+		animation_name = animations[0]
+	
+	property_list_changed_notify()
+
+func _set_animation_name(name):
+	animation_name = name
+	if animation_name == "" and not animations.empty():
+		animation_name = animations[0]
+	
+	if animations.empty() and has_node(animation_player_path):
+		animation_player = get_node(animation_player_path)
+		animations = animation_player.get_animation_list()
+		animation_name = animations[0]
+	
+	property_list_changed_notify()
+
 func _set_save_as(option):
 	saveOption = option
 	property_list_changed_notify()
 
 func _get_property_list():
 	var properties = []
+
+	properties.append({
+		name = "animation_name",
+		type = TYPE_STRING,
+		hint = PROPERTY_HINT_ENUM,
+		hint_string = PoolStringArray(animations).join(','),
+		usage = PROPERTY_USAGE_DEFAULT
+	})
+	properties.append({
+		name = "resultFolder",
+		type = TYPE_STRING,
+		hint = PROPERTY_HINT_DIR,
+		usage = PROPERTY_USAGE_DEFAULT
+	})
+	
+	properties.append({
+		name = "saveOption",
+		type = TYPE_INT,
+		hint = PROPERTY_HINT_ENUM,
+		hint_string = PoolStringArray(SaveAs.keys()).join(','),
+		usage = PROPERTY_USAGE_DEFAULT
+	})
+	
 	
 	if saveOption == SaveAs.SPRITE_SHEET:
 		properties.append({
@@ -56,7 +102,7 @@ func _ready():
 		animation_player = get_node(animation_player_path)
 		animation_player.current_animation = animation_name
 		length = animation_player.current_animation_length
-
+		
 		rate = (1.0 / fps)
 		
 		print("Recording...")
@@ -83,7 +129,7 @@ func _ready():
 		spritesheetGenerator.visible = false
 	
 func _check_exception_errors():
-	assert(animation_player_path != "", "Error: AnimationPlayer Path is Null")
+	assert(has_node(animation_player_path), "Error: AnimationPlayer Path is Null")
 	assert(get_node(animation_player_path) is AnimationPlayer, "Error: Expected an AnimationPlayer Path")
 	assert(animation_name != "", "Error: Expected an Animation name")
 	assert(animation_name in get_node(animation_player_path).get_animation_list(), "Error: There is no Animation called " + animation_name)

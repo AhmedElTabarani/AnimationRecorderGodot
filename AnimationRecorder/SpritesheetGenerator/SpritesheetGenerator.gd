@@ -24,5 +24,7 @@ func _save_image(image):
 	
 func _generate_spritesheet():
 	# Set the size of the sprite sheet
-	$Viewport.size =  Grid.rect_size
+	var width = Grid.rect_size.x
+	var hight = Grid.get_children()[0].rect_size.y * (ceil(Grid.get_children().size() / float(Grid.columns)))
+	$Viewport.size =  Vector2(width, hight)
 	$Viewport._generate_spritesheet(resultFolder, exitAfterFinish)

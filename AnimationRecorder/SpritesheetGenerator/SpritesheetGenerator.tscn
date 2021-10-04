@@ -19,7 +19,7 @@ render_target_update_mode = 3
 script = ExtResource( 2 )
 
 [node name="GridContainer" type="GridContainer" parent="Viewport"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 384.0
+margin_bottom = 320.0
 custom_constants/vseparation = 0
 custom_constants/hseparation = 0

@@ -4,7 +4,6 @@
 [ext_resource path="res://AnimationRecorder/Record.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "test"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -61,3 +60,5 @@ fps = 15.0
 animation_player_path = NodePath("../AnimationPlayer")
 animation_name = "test"
 resultFolder = "res://Examble/Result"
+saveOption = 0
+exitAfterFinish = false
