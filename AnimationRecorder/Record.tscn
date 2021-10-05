@@ -10,4 +10,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+animation_name = ""
+resultFolder = "res://AnimRecResult"
+saveOption = 0
 exitAfterFinish = true

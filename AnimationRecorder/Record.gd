@@ -10,7 +10,7 @@ export(NodePath) var animation_player_path = "" setget _set_animation_player_pat
 var animation_name = "" setget _set_animation_name
 var animations : Array = []
 
-var resultFolder = ""
+var resultFolder = "res://AnimRecResult"
 
 enum SaveAs {SPLIT_IMAGES, SPRITE_SHEET}
 var saveOption = SaveAs.SPLIT_IMAGES setget _set_save_as

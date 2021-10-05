@@ -27,7 +27,7 @@ select the size of the screen you want to record, then change the properties
   - The name of the animation you want to record
 - Result Folder
   - The folder that will store the images
-  - If you keep it empty, the images will be stored in `res://` 
+  - If you keep it empty, the images will be stored in `res://AnimRecResult` folder 
 - Save Option
   - You can save the record as `Split Images` or as `Sprite Sheet`
   - If you select `Sprite Sheet`, The `Number of Columns` property will be appear
