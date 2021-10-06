@@ -116,7 +116,7 @@ func _ready():
 		# Create result folder if it doesn't exist
 		var dir = Directory.new()
 		if dir.dir_exists(resultFolder) != true:
-			dir.make_dir(resultFolder)
+			dir.make_dir_recursive(resultFolder)
 		
 		# Prevent Godot from importing the output images as resources
 		var file = File.new()
