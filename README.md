@@ -2,6 +2,9 @@
 
 A tool that Recording any animation of AnimationPlayer
 
+
+**⚠ Note:** Use Godot Engine v3.4 to avoid this bug [#7](https://github.com/AhmedElTabarani/AnimationRecorder/issues/7)
+
 ## How to use
 
 https://user-images.githubusercontent.com/69223584/135526555-21753c0f-1f66-4e6a-8604-9d070de3945f.mp4
